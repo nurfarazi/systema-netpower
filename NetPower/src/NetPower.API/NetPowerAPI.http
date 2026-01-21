@@ -1,0 +1,6 @@
+@NetPowerAPI_HostAddress = http://localhost:5139
+
+GET {{NetPowerAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

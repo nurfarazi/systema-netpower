@@ -1,0 +1,13 @@
+<Solution>
+  <!-- Source Projects -->
+  <Project Path="src/NetPower.Domain/NetPower.Domain.csproj" />
+  <Project Path="src/NetPower.Application/NetPower.Application.csproj" />
+  <Project Path="src/NetPower.Infrastructure/NetPower.Infrastructure.csproj" />
+  <Project Path="src/NetPower.API/NetPower.API.csproj" />
+
+  <!-- Test Projects -->
+  <Project Path="tests/NetPower.Domain.UnitTests/NetPower.Domain.UnitTests.csproj" />
+  <Project Path="tests/NetPower.Application.UnitTests/NetPower.Application.UnitTests.csproj" />
+  <Project Path="tests/NetPower.Infrastructure.UnitTests/NetPower.Infrastructure.UnitTests.csproj" />
+  <Project Path="tests/NetPower.API.IntegrationTests/NetPower.API.IntegrationTests.csproj" />
+</Solution>
