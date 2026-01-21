@@ -2,6 +2,15 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
 
+## Features
+
+### User Management
+
+- **User List**: View paginated list of users with search and filter capabilities
+- **Search**: Real-time search by name or email with 300ms debouncing
+- **Filter by Status**: Filter users by active/inactive status
+- **Responsive Design**: Mobile-friendly user interface
+
 ## Development server
 
 To start a local development server, run:
@@ -11,6 +20,35 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+### Server-Side Rendering (SSR)
+
+To run the application with SSR for production-like environment:
+
+1. Build the project:
+
+```bash
+ng build
+```
+
+2. Start the SSR server:
+
+```bash
+npm run serve:ssr:client
+```
+
+**Note**: For development with self-signed SSL certificates, the SSR server is configured to bypass certificate validation via `NODE_TLS_REJECT_UNAUTHORIZED=0`. This should never be used in production.
+
+## API Integration
+
+The application connects to a backend API at `https://localhost:7115/api/Users`.
+
+### Query Parameters
+
+- `search` - Filter users by name or email
+- `isActive` - Filter users by active status (true/false)
+
+Example: `https://localhost:7115/api/Users?search=john&isActive=true`
 
 ## Code scaffolding
 

@@ -9,4 +9,5 @@ export interface User {
 
 export interface UsersResponse {
   items: User[];
+  totalCount: number;
 }
