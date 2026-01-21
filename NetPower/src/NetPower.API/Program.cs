@@ -2,6 +2,7 @@ using NetPower.API.Middleware;
 using NetPower.API.OpenApi;
 using NetPower.Application;
 using NetPower.Infrastructure;
+using NetPower.Infrastructure.Persistence.Seeds;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,9 @@ builder.Services.AddLogging(config =>
 });
 
 var app = builder.Build();
+
+// Seed the database
+await DbSeeder.SeedAsync(app.Services);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

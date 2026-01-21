@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
+import { UserList } from './user-list/user-list';
 
 export const routes: Routes = [
     {
         path: '',
-        component: Home
+        component: UserList
     },
     {
         path: '**',
