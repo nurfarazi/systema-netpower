@@ -8,32 +8,32 @@
     </div>
   } @else if (users$ | async; as users) {
     @if (users.length > 0) {
-      <div class="users-grid">
-        @for (user of users; track trackByUserId($index, user)) {
-          <div class="user-card" [class.inactive]="!user.isActive">
-            <div class="card-header">
-              <h2>{{ user.name }}</h2>
-              <span class="status-badge" [class.active]="user.isActive">
-                {{ user.isActive ? 'Active' : 'Inactive' }}
-              </span>
-            </div>
-            <div class="card-body">
-              <div class="info-row">
-                <span class="label">Email:</span>
-                <span class="value">{{ user.email }}</span>
-              </div>
-              <div class="info-row">
-                <span class="label">Created By:</span>
-                <span class="value">{{ user.createdBy }}</span>
-              </div>
-              <div class="info-row">
-                <span class="label">Created At:</span>
-                <span class="value">{{ user.createdAt | date: 'short' }}</span>
-              </div>
-            </div>
-          </div>
-        }
-      </div>
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Created By</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (user of users; track trackByUserId($index, user)) {
+            <tr [class.inactive]="!user.isActive">
+              <td class="name">{{ user.name }}</td>
+              <td class="email">{{ user.email }}</td>
+              <td class="status">
+                <span class="status-badge" [class.active]="user.isActive">
+                  {{ user.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+              <td class="created-by">{{ user.createdBy }}</td>
+              <td class="created-at">{{ user.createdAt | date: 'short' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
     } @else {
       <div class="empty-state">
         <p>No users found</p>
