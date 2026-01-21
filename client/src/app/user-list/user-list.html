@@ -66,43 +66,45 @@
         </tbody>
       </table>
 
-      <div class="pagination-container">
-        <div class="pagination-info">
-          <span>Showing {{ startItem }} - {{ endItem }} of {{ totalItems }} users</span>
-        </div>
+      @if (totalCount$ | async; as totalCount) {
+        <div class="pagination-container">
+          <div class="pagination-info">
+            <span>Showing {{ getStartItem(totalCount) }} - {{ getEndItem(totalCount) }} of {{ totalCount }} users</span>
+          </div>
 
-        <div class="pagination-controls">
-          <select
-            [(ngModel)]="pageSize"
-            (ngModelChange)="onPageSizeChange($event)"
-            class="page-size-selector"
-          >
-            @for (size of pageSizeOptions; track size) {
-              <option [value]="size">{{ size }} per page</option>
-            }
-          </select>
-
-          <div class="page-navigation">
-            <button
-              class="page-btn"
-              (click)="prevPage()"
-              [disabled]="currentPage === 1"
+          <div class="pagination-controls">
+            <select
+              [(ngModel)]="pageSize"
+              (ngModelChange)="onPageSizeChange($event)"
+              class="page-size-selector"
             >
-              Previous
-            </button>
+              @for (size of pageSizeOptions; track size) {
+                <option [value]="size">{{ size }} per page</option>
+              }
+            </select>
 
-            <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+            <div class="page-navigation">
+              <button
+                class="page-btn"
+                (click)="prevPage()"
+                [disabled]="currentPage === 1"
+              >
+                Previous
+              </button>
 
-            <button
-              class="page-btn"
-              (click)="nextPage()"
-              [disabled]="currentPage === totalPages || totalPages === 0"
-            >
-              Next
-            </button>
+              <span class="page-info">Page {{ currentPage }} of {{ getTotalPages(totalCount) }}</span>
+
+              <button
+                class="page-btn"
+                (click)="nextPage(totalCount)"
+                [disabled]="currentPage === getTotalPages(totalCount) || getTotalPages(totalCount) === 0"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      }
     } @else {
       <div class="empty-state">
         <p>No users found</p>

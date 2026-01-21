@@ -25,7 +25,6 @@ export class UserList implements OnInit, OnDestroy {
   protected isActiveFilter: string = 'all'; // 'all', 'active', 'inactive'
   protected currentPage: number = 1;
   protected pageSize: number = 25;
-  protected totalItems: number = 0;
   protected pageSizeOptions: number[] = [10, 25, 50, 100];
 
   constructor() {
@@ -43,13 +42,6 @@ export class UserList implements OnInit, OnDestroy {
     ).subscribe(searchTerm => {
       this.currentPage = 1; // Reset to first page on search
       this.applyFilters();
-    });
-
-    // Subscribe to totalCount changes
-    this.totalCount$.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(count => {
-      this.totalItems = count;
     });
 
     // Initial load
@@ -89,20 +81,20 @@ export class UserList implements OnInit, OnDestroy {
     return user.id;
   }
 
-  protected get totalPages(): number {
-    return Math.ceil(this.totalItems / this.pageSize);
+  protected getTotalPages(totalCount: number): number {
+    return Math.ceil(totalCount / this.pageSize);
   }
 
-  protected get startItem(): number {
-    return this.totalItems === 0 ? 0 : (this.currentPage - 1) * this.pageSize + 1;
+  protected getStartItem(totalCount: number): number {
+    return totalCount === 0 ? 0 : (this.currentPage - 1) * this.pageSize + 1;
   }
 
-  protected get endItem(): number {
-    return Math.min(this.currentPage * this.pageSize, this.totalItems);
+  protected getEndItem(totalCount: number): number {
+    return Math.min(this.currentPage * this.pageSize, totalCount);
   }
 
-  protected nextPage(): void {
-    if (this.currentPage < this.totalPages) {
+  protected nextPage(totalCount: number): void {
+    if (this.currentPage < this.getTotalPages(totalCount)) {
       this.currentPage++;
       this.applyFilters();
     }
@@ -115,8 +107,8 @@ export class UserList implements OnInit, OnDestroy {
     }
   }
 
-  protected goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
+  protected goToPage(page: number, totalCount: number): void {
+    if (page >= 1 && page <= this.getTotalPages(totalCount)) {
       this.currentPage = page;
       this.applyFilters();
     }
