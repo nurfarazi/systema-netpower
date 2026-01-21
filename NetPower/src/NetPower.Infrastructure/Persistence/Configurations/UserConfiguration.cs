@@ -48,9 +48,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasIndex(u => u.IsActive);
 
-        // Composite index for common query pattern (search + isActive filter)
-        builder.HasIndex(u => new { u.IsActive, u.Name });
-        builder.HasIndex(u => new { u.IsActive, u.Email });
+        // Composite index for optimized search with isActive filter
+        // This index improves performance when filtering by IsActive and searching by Name
+        builder.HasIndex(u => new { u.IsActive, u.Name })
+            .HasDatabaseName("IX_Users_IsActive_Name");
+
+        builder.HasIndex(u => new { u.IsActive, u.Email })
+            .HasDatabaseName("IX_Users_IsActive_Email");
 
         builder.ToTable("Users");
     }

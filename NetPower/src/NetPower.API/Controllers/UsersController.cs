@@ -10,7 +10,7 @@ namespace NetPower.API.Controllers;
 /// <summary>
 /// API controller for managing users.
 /// </summary>
-[Route("api/[controller]")]
+[Route("api/users")]
 [ApiController]
 [Tags("Users")]
 public class UsersController : ApiControllerBase
