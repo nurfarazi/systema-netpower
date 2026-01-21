@@ -1,3 +1,6 @@
+// Disable certificate verification for development to allow self-signed certs
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+
 import { BootstrapContext, bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app/app';
 import { config } from './app/app.config.server';
